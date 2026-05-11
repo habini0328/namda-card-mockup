@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAMDA Card — Future of Money</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #0A0A0A;
+    --gray-900: #171717;
+    --gray-700: #404040;
+    --gray-500: #737373;
+    --gray-300: #D4D4D4;
+    --gray-100: #F5F5F5;
+    --gray-50: #FAFAFA;
+    --white: #FFFFFF;
+    --accent: #1E40AF;
+    --accent-light: #3B82F6;
+    --teal: #0D9488;
+    --gold: #C9A961;
+    --gradient: linear-gradient(135deg, #0A0A0A 0%, #1E40AF 100%);
+    --gradient-light: linear-gradient(135deg, #1E40AF 0%, #0D9488 100%);
+  }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    color: var(--gray-900);
+    line-height: 1.6;
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ───── NAV ───── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-100);
+    z-index: 100;
+    padding: 18px 0;
+  }
+  nav .container { display: flex; justify-content: space-between; align-items: center; }
+  .logo {
+    display: flex; align-items: center;
+  }
+  .logo img { height: 14px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { color: var(--gray-700); font-weight: 500; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--black); }
+  .nav-cta {
+    background: var(--black); color: white; padding: 11px 22px;
+    border-radius: 100px; font-weight: 600; font-size: 14px;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+
+  /* ───── HERO ───── */
+  .hero {
+    padding: 160px 0 120px;
+    background: var(--white);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(30,64,175,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero .container { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; background: var(--gray-50);
+    border: 1px solid var(--gray-100); border-radius: 100px;
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    margin-bottom: 24px; letter-spacing: 0.5px;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(30,64,175,0.15);
+  }
+  .hero h1 {
+    font-size: 64px; line-height: 1.1; font-weight: 800;
+    color: var(--black); letter-spacing: -2px; margin-bottom: 28px;
+  }
+  .hero h1 .accent {
+    background: var(--gradient-light); -webkit-background-clip: text;
+    background-clip: text; color: transparent;
+  }
+  .hero .lead {
+    font-size: 19px; color: var(--gray-500); margin-bottom: 36px;
+    max-width: 500px; line-height: 1.7;
+  }
+  .hero-bullets { display: flex; gap: 28px; margin-bottom: 44px; flex-wrap: wrap; }
+  .hero-bullets span {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; color: var(--gray-700); font-weight: 500;
+  }
+  .hero-bullets span::before {
+    content: '✓'; color: var(--accent); font-weight: 800; font-size: 14px;
+  }
+  .hero-cta { display: flex; gap: 16px; align-items: center; }
+  .btn-primary {
+    background: var(--black); color: white; padding: 18px 36px;
+    border-radius: 100px; font-weight: 700; font-size: 15px;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-text {
+    color: var(--gray-700); font-weight: 600; font-size: 14px;
+    display: flex; align-items: center; gap: 6px; padding: 18px 8px;
+  }
+  .btn-text:hover { color: var(--black); }
+
+  /* HERO CARD MOCKUP */
+  .hero-card-wrap { position: relative; min-height: 480px; display: flex; justify-content: center; align-items: center; }
+  .card-mockup {
+    width: 400px; height: 252px; border-radius: 22px;
+    background: linear-gradient(135deg, #0A0A0A 0%, #1E3A8A 100%);
+    box-shadow: 0 40px 80px rgba(10,10,10,0.4), 0 0 0 1px rgba(255,255,255,0.08) inset;
+    padding: 32px; color: white; position: relative; overflow: hidden;
+    transform: rotate(-5deg);
+  }
+  .card-mockup::before {
+    content: ''; position: absolute; top: -50%; right: -50%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(30,64,175,0.3) 0%, transparent 60%);
+  }
+  .card-mockup::after {
+    content: 'GLOBAL'; position: absolute; bottom: 32px; right: 32px;
+    font-size: 11px; font-weight: 600; letter-spacing: 3px;
+    opacity: 0.5;
+  }
+  .card-brand-row { display: flex; justify-content: space-between; align-items: center; }
+  .card-brand {
+    font-size: 18px; font-weight: 800; letter-spacing: 3px;
+  }
+  .card-brand small { font-size: 10px; opacity: 0.7; letter-spacing: 2px; display: block; margin-top: 2px; font-weight: 500; }
+  .card-wifi { font-size: 22px; opacity: 0.7; transform: rotate(90deg); }
+  .card-chip {
+    width: 48px; height: 36px;
+    background: linear-gradient(135deg, #FBBF24, #B45309);
+    border-radius: 6px; margin: 44px 0 18px;
+    position: relative;
+  }
+  .card-chip::before {
+    content: ''; position: absolute; inset: 4px;
+    border: 1px solid rgba(0,0,0,0.2); border-radius: 3px;
+  }
+  .card-number {
+    font-size: 19px; font-family: 'Courier New', monospace;
+    letter-spacing: 3px; margin-bottom: 14px; font-weight: 600;
+  }
+  .card-footer { display: flex; justify-content: space-between; align-items: end; font-size: 11px; }
+  .card-name { font-weight: 600; letter-spacing: 1px; }
+  .card-expire { opacity: 0.7; }
+
+  .card-mockup-2 {
+    position: absolute; right: 0; bottom: 40px;
+    width: 300px; height: 190px; border-radius: 18px;
+    background: linear-gradient(135deg, #1E40AF 0%, #0D9488 100%);
+    box-shadow: 0 25px 50px rgba(30,64,175,0.3);
+    transform: rotate(10deg); opacity: 0.85;
+  }
+
+  /* ───── STATS BAR ───── */
+  .stats-bar {
+    background: var(--black); color: white;
+    padding: 40px 0; overflow: hidden;
+  }
+  .stats-bar .container {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 36px; font-weight: 800; letter-spacing: -1px;
+    background: linear-gradient(135deg, #fff 0%, #93C5FD 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.6); letter-spacing: 0.5px; }
+
+  /* ───── SECTION COMMON ───── */
+  section { padding: 120px 0; }
+  .section-head { text-align: center; margin-bottom: 72px; }
+  .section-eyebrow {
+    display: inline-block; padding: 6px 14px; background: var(--gray-50);
+    border: 1px solid var(--gray-100); border-radius: 100px;
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    margin-bottom: 20px; letter-spacing: 1px;
+  }
+  .section-head h2 {
+    font-size: 48px; font-weight: 800; color: var(--black);
+    letter-spacing: -1.5px; margin-bottom: 18px; line-height: 1.15;
+  }
+  .section-head p { font-size: 18px; color: var(--gray-500); max-width: 640px; margin: 0 auto; line-height: 1.6; }
+
+  /* ───── CARD FEATURES ───── */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  }
+  .feature-card {
+    background: var(--gray-50); padding: 36px 28px; border-radius: 20px;
+    border: 1px solid transparent;
+    transition: all 0.3s; cursor: pointer;
+  }
+  .feature-card:hover {
+    transform: translateY(-6px);
+    background: var(--white);
+    border-color: var(--gray-100);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+  }
+  .feature-num {
+    font-size: 14px; font-weight: 700; color: var(--accent);
+    margin-bottom: 16px; letter-spacing: 1px;
+  }
+  .feature-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+  .feature-card h3 {
+    font-size: 20px; font-weight: 800; color: var(--black);
+    margin-bottom: 10px; letter-spacing: -0.3px;
+  }
+  .feature-card p { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+
+  /* ───── BENEFITS SECTIONS ───── */
+  .benefit-section { background: var(--gray-50); }
+  .benefit-section.alt { background: var(--white); }
+  .benefit-section.dark {
+    background: var(--black); color: white;
+  }
+  .benefit-section.dark .section-head h2 { color: white; }
+  .benefit-section.dark .section-head p { color: rgba(255,255,255,0.7); }
+  .benefit-section.dark .section-eyebrow { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.1); color: #93C5FD; }
+
+  .benefit-hero {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    align-items: center; margin-bottom: 48px;
+  }
+  .benefit-hero .text h3 {
+    font-size: 36px; font-weight: 800; letter-spacing: -1px;
+    margin-bottom: 16px; line-height: 1.2;
+  }
+  .benefit-hero .text p {
+    font-size: 16px; color: var(--gray-500); line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .benefit-hero .visual {
+    aspect-ratio: 4/3; border-radius: 24px;
+    background: linear-gradient(135deg, #1E40AF, #0D9488);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 90px;
+    box-shadow: 0 30px 60px rgba(30,64,175,0.2);
+  }
+  .benefit-hero.reverse .visual {
+    background: linear-gradient(135deg, #C9A961, #92400E);
+  }
+  .benefit-hero.three-c .visual {
+    background: linear-gradient(135deg, #7C3AED, #1E40AF);
+  }
+
+  .benefit-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .benefit-grid.four { grid-template-columns: repeat(4, 1fr); }
+
+  .benefit-card {
+    background: var(--white); padding: 32px 28px; border-radius: 18px;
+    border: 1px solid var(--gray-100); transition: all 0.3s;
+  }
+  .benefit-section.dark .benefit-card {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+  }
+  .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--accent-light); }
+  .benefit-section.dark .benefit-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(147,197,253,0.4); box-shadow: 0 20px 40px rgba(30,64,175,0.2); }
+  .benefit-card .icon {
+    font-size: 28px; margin-bottom: 14px; display: block;
+  }
+  .benefit-card h4 {
+    font-size: 17px; font-weight: 700; color: inherit;
+    margin-bottom: 10px; letter-spacing: -0.2px;
+  }
+  .benefit-section.dark .benefit-card h4 { color: white; }
+  .benefit-card .desc {
+    font-size: 14px; color: var(--gray-500); line-height: 1.6;
+  }
+  .benefit-section.dark .benefit-card .desc { color: rgba(255,255,255,0.6); }
+
+  .benefit-tag {
+    display: inline-block; padding: 4px 10px;
+    background: rgba(30,64,175,0.08); color: var(--accent);
+    border-radius: 6px; font-size: 12px; font-weight: 700;
+    margin-bottom: 12px; letter-spacing: 0.3px;
+  }
+
+  /* ───── MEMBERSHIP ───── */
+  .membership { background: var(--gray-50); }
+  .grade-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    max-width: 900px; margin: 0 auto;
+  }
+  .grade-card {
+    background: white; padding: 40px; border-radius: 20px;
+    border: 1px solid var(--gray-100);
+    transition: all 0.3s;
+  }
+  .grade-card:hover { transform: translateY(-4px); border-color: var(--accent-light); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+  .grade-card .icon-bg {
+    width: 60px; height: 60px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; margin-bottom: 20px;
+  }
+  .grade-card.period .icon-bg { background: rgba(30,64,175,0.1); }
+  .grade-card.amount .icon-bg { background: rgba(201,169,97,0.15); }
+  .grade-card h3 {
+    font-size: 22px; font-weight: 800; color: var(--black);
+    margin-bottom: 8px; letter-spacing: -0.3px;
+  }
+  .grade-card .sub { font-size: 14px; color: var(--gray-500); margin-bottom: 16px; }
+  .grade-card .desc { font-size: 15px; color: var(--gray-700); line-height: 1.7; }
+
+  /* ───── APPLY ───── */
+  .apply-section {
+    background: var(--black); color: white;
+    position: relative; overflow: hidden;
+  }
+  .apply-section::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(30,64,175,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .apply-section::after {
+    content: ''; position: absolute; bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(13,148,136,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .apply-section .section-head h2 { color: white; font-size: 56px; }
+  .apply-section .section-head p { color: rgba(255,255,255,0.75); }
+  .apply-section .section-eyebrow { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.1); color: #93C5FD; }
+
+  .steps {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    max-width: 920px; margin: 0 auto 56px; position: relative; z-index: 1;
+  }
+  .step {
+    background: rgba(255,255,255,0.04); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1); padding: 36px;
+    border-radius: 20px; text-align: center;
+  }
+  .step-num {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, #fff 0%, #93C5FD 100%);
+    color: var(--black);
+    border-radius: 50%; font-size: 20px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .step h4 { font-size: 19px; font-weight: 800; margin-bottom: 8px; color: white; }
+  .step p { font-size: 14px; color: rgba(255,255,255,0.7); }
+  .step .time { font-size: 12px; color: #93C5FD; margin-top: 8px; font-weight: 600; }
+
+  .apply-cta {
+    text-align: center; position: relative; z-index: 1;
+  }
+  .btn-white {
+    background: white; color: var(--black); padding: 22px 56px;
+    border-radius: 100px; font-weight: 800; font-size: 17px;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.25s;
+    box-shadow: 0 20px 50px rgba(255,255,255,0.15);
+  }
+  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 25px 60px rgba(255,255,255,0.25); }
+
+  .trust-badges {
+    display: flex; justify-content: center; gap: 32px; margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .trust-badges span { font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px; }
+
+  /* ───── FAQ ───── */
+  .faq-list { max-width: 820px; margin: 0 auto; }
+  .faq-item {
+    border-bottom: 1px solid var(--gray-100); padding: 28px 0;
+  }
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 17px; font-weight: 700; color: var(--black);
+    cursor: pointer; padding-right: 32px; position: relative;
+  }
+  .faq-q::after {
+    content: '+'; position: absolute; right: 0; font-size: 28px;
+    color: var(--accent); font-weight: 300; line-height: 1;
+  }
+  .faq-a {
+    margin-top: 14px; font-size: 15px; color: var(--gray-500);
+    line-height: 1.8; padding-right: 32px;
+  }
+
+  /* ───── CONTACT ───── */
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    max-width: 900px; margin: 56px auto 0;
+  }
+  .contact-card {
+    background: white; border: 1px solid var(--gray-100);
+    border-radius: 18px; padding: 32px 24px; text-align: center;
+    transition: all 0.3s; cursor: pointer;
+  }
+  .contact-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.06); }
+  .contact-icon { font-size: 32px; margin-bottom: 14px; }
+  .contact-card h4 { font-size: 17px; font-weight: 700; color: var(--black); margin-bottom: 6px; }
+  .contact-card .info { font-size: 14px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+  .contact-card .hours { font-size: 12px; color: var(--gray-500); }
+
+  /* ───── FOOTER ───── */
+  footer {
+    background: var(--black); color: rgba(255,255,255,0.6);
+    padding: 72px 0 32px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand h3 { margin-bottom: 18px; }
+  .footer-brand h3 img { height: 14px; width: auto; display: block; }
+  .footer-brand p { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+  .footer-brand .biz-info { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.8; }
+  .footer-col h5 { color: white; font-size: 13px; margin-bottom: 16px; font-weight: 700; letter-spacing: 1px; }
+  .footer-col a {
+    display: block; color: rgba(255,255,255,0.5);
+    font-size: 13px; padding: 6px 0; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: white; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px;
+    font-size: 12px; color: rgba(255,255,255,0.3); text-align: center;
+    line-height: 1.7;
+  }
+
+  /* ───── RESPONSIVE ───── */
+  @media (max-width: 968px) {
+    .hero .container { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 44px; }
+    .nav-links { display: none; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .benefit-grid, .benefit-grid.four { grid-template-columns: 1fr 1fr; }
+    .benefit-hero { grid-template-columns: 1fr; }
+    .grade-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .stats-bar .container { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .section-head h2 { font-size: 34px; }
+    .apply-section .section-head h2 { font-size: 36px; }
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .features-grid, .benefit-grid, .benefit-grid.four { grid-template-columns: 1fr; }
+    .hero { padding: 120px 0 60px; }
+    section { padding: 80px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="logo"><img src="data:image/png;base64,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" alt="NAMDA"></div>
+    <div class="nav-links">
+      <a href="#features">카드 소개</a>
+      <a href="#trip">NAMDA Trip</a>
+      <a href="#mall">NAMDA Mall</a>
+      <a href="#rental">NAMDA Rental</a>
+      <a href="#membership">멤버십</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#apply" class="nav-cta">Get Your Card</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div>
+      <span class="hero-badge">FUTURE OF MONEY · NAMDA GLOBAL CARD</span>
+      <h1>여행부터 쇼핑까지,<br><span class="accent">카드 한 장으로.</span></h1>
+      <p class="lead">스마트한 글로벌 결제부터 라이프스타일 혜택까지 ―<br>NAMDA Card 한 장으로 새로운 일상이 시작됩니다.</p>
+      <div class="hero-bullets">
+        <span>비대면 KYC 즉시 발급</span>
+        <span>환전 없이 글로벌 결제</span>
+        <span>전 세계 1억 3천만+ 가맹점</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#apply" class="btn-primary">Get Your Card →</a>
+        <a href="#features" class="btn-text">혜택 살펴보기 ↓</a>
+      </div>
+    </div>
+    <div class="hero-card-wrap">
+      <div class="card-mockup">
+        <div class="card-brand-row">
+          <div class="card-brand">
+            NAMDA
+            <small>GLOBAL CARD</small>
+          </div>
+          <div class="card-wifi">))) </div>
+        </div>
+        <div class="card-chip"></div>
+        <div class="card-number">•••• •••• •••• 0000</div>
+        <div class="card-footer">
+          <div class="card-name">YOUR NAME</div>
+          <div class="card-expire">VALID THRU 12/30</div>
+        </div>
+      </div>
+      <div class="card-mockup-2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="container">
+    <div>
+      <div class="stat-num">1.3억+</div>
+      <div class="stat-label">전 세계 가맹점</div>
+    </div>
+    <div>
+      <div class="stat-num">USD</div>
+      <div class="stat-label">환전 불필요 글로벌 결제</div>
+    </div>
+    <div>
+      <div class="stat-num">최대 90%</div>
+      <div class="stat-label">NAMDA Mall 할인</div>
+    </div>
+    <div>
+      <div class="stat-num">즉시</div>
+      <div class="stat-label">비대면 KYC 발급</div>
+    </div>
+  </div>
+</div>
+
+<!-- CARD FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">CARD FEATURES</span>
+      <h2>스마트한 금융,<br>당신만을 위해 설계되었습니다</h2>
+      <p>NAMDA Card는 AI와 블록체인 기술을 결합한<br>차세대 글로벌 결제 솔루션입니다</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <span class="feature-icon">⚡</span>
+        <h3>즉시 발급 & 사용</h3>
+        <p>비대면 KYC 인증 후 곧바로 디지털 카드 결제가 시작됩니다. 실물 카드 배송 전에도 바로 사용 가능.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <span class="feature-icon">🌐</span>
+        <h3>환전 없는 글로벌 결제</h3>
+        <p>USD 기반 글로벌 결제로 환전 절차가 필요 없습니다. 전 세계 어디서나 동일한 사용 경험.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <span class="feature-icon">📊</span>
+        <h3>실시간 자산 관리</h3>
+        <p>모든 자산을 한곳에서 통합 관리. 다양한 방식으로 충전하고 사용 내역을 실시간으로 확인하세요.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <span class="feature-icon">🔐</span>
+        <h3>블록체인 보안</h3>
+        <p>모든 거래 기록이 블록체인 기반으로 암호화되어 저장됩니다. 안전하고 투명한 결제 환경.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NAMDA TRIP -->
+<section id="trip" class="benefit-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">✈️ NAMDA TRIP</span>
+      <h2>여행이 더 가벼워지는 순간</h2>
+      <p>국내외 여행 상품을 한곳에서 — NAMDA Trip이 함께합니다</p>
+    </div>
+
+    <div class="benefit-hero">
+      <div class="text">
+        <h3>전 세계 어디든,<br>한 번의 예약으로</h3>
+        <p>펜션, 호텔, 리조트부터 항공편, 골프, 스키, 요트까지 ― NAMDA Trip은 다양한 여행 상품을 한곳에서 손쉽게 예약할 수 있는 통합 여행 플랫폼입니다. NAMDA Card 결제 시 회원 전용 혜택이 자동 적용됩니다.</p>
+      </div>
+      <div class="visual">✈️</div>
+    </div>
+
+    <div class="benefit-grid four">
+      <div class="benefit-card">
+        <span class="icon">🏨</span>
+        <span class="benefit-tag">HOTEL & RESORT</span>
+        <h4>호텔 & 리조트</h4>
+        <p class="desc">국내외 프리미엄 호텔과 리조트를 NAMDA Card 회원 전용가로.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">✈️</span>
+        <span class="benefit-tag">FLIGHT</span>
+        <h4>항공편 예약</h4>
+        <p class="desc">국내선·국제선 항공편을 한곳에서 비교 예약. 환전 없이 결제.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">⛳</span>
+        <span class="benefit-tag">GOLF & SKI</span>
+        <h4>골프 & 스키</h4>
+        <p class="desc">시즌별 골프·스키 패키지. 부킹부터 부대시설까지 원스톱.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">🛥️</span>
+        <span class="benefit-tag">YACHT & PENSION</span>
+        <h4>요트 & 펜션</h4>
+        <p class="desc">특별한 휴식을 위한 요트 차터, 감성 펜션 큐레이션.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NAMDA MALL -->
+<section id="mall" class="benefit-section dark">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">🛍️ NAMDA MALL</span>
+      <h2>매일을 더 풍요롭게,<br>최대 90%까지</h2>
+      <p>임직원과 제휴 회원을 위한 프리미엄 복지 쇼핑 ― 소매가 대비 최대 90% 할인</p>
+    </div>
+
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <span class="icon">💎</span>
+        <span class="benefit-tag" style="background: rgba(147,197,253,0.15); color: #93C5FD;">PREMIUM</span>
+        <h4>프리미엄 복지 쇼핑</h4>
+        <p class="desc">엄선된 브랜드, 회원 전용 가격으로 만나보세요. 일상부터 럭셔리까지 한 공간에서.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">🏷️</span>
+        <span class="benefit-tag" style="background: rgba(147,197,253,0.15); color: #93C5FD;">UP TO 90% OFF</span>
+        <h4>소매가 대비 최대 90% 할인</h4>
+        <p class="desc">시중 가격으로는 얻을 수 없는 단독 할인. NAMDA 회원만의 특별한 혜택입니다.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">🎁</span>
+        <span class="benefit-tag" style="background: rgba(147,197,253,0.15); color: #93C5FD;">REWARDS</span>
+        <h4>포인트 적립 & 사용</h4>
+        <p class="desc">NAMDA Card로 결제 시 포인트가 적립되고, 다음 쇼핑에서 현금처럼 사용할 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NAMDA RENTAL -->
+<section id="rental" class="benefit-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">🚗 NAMDA RENTAL</span>
+      <h2>필요할 때, 합리적으로</h2>
+      <p>차량부터 자산까지 — 소유 대신 사용을 선택하는 새로운 라이프스타일</p>
+    </div>
+
+    <div class="benefit-hero reverse">
+      <div class="visual">🚗</div>
+      <div class="text">
+        <h3>Car & Asset Rental,<br>합리적 라이프의 시작</h3>
+        <p>NAMDA Rental은 차량부터 가전·생활용품, 비즈니스 자산까지 폭넓은 렌탈 서비스를 제공합니다. NAMDA Card 결제 시 회원 전용 가격과 무이자 할부가 적용되어, 더 합리적으로 원하는 라이프스타일을 누릴 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <span class="icon">🚙</span>
+        <span class="benefit-tag">CAR RENTAL</span>
+        <h4>차량 렌탈</h4>
+        <p class="desc">단기·장기 차량 렌탈, 국내외 픽업·드롭 서비스. NAMDA 회원 전용가로 이용 가능.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">🏠</span>
+        <span class="benefit-tag">LIFESTYLE</span>
+        <h4>생활 렌탈</h4>
+        <p class="desc">가전·가구·뷰티 디바이스 등 다양한 라이프스타일 렌탈을 한곳에서.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">💼</span>
+        <span class="benefit-tag">BUSINESS</span>
+        <h4>비즈니스 자산</h4>
+        <p class="desc">사무기기, 산업 장비 등 기업 고객을 위한 자산 렌탈 솔루션 제공.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section id="membership" class="membership">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">⭐ MEMBERSHIP</span>
+      <h2>두 가지 방식으로<br>등급이 결정됩니다</h2>
+      <p>NAMDA Card 회원은 가입 기간과 사용액 두 가지 기준으로 평가됩니다</p>
+    </div>
+
+    <div class="grade-grid">
+      <div class="grade-card period">
+        <div class="icon-bg">📅</div>
+        <h3>기간 기반 평가</h3>
+        <div class="sub">Biannual Grade Evaluation</div>
+        <p class="desc">반기 단위로 가입 기간에 따라 회원 등급이 평가됩니다. 오래 함께할수록 더 큰 혜택이 주어집니다.</p>
+      </div>
+      <div class="grade-card amount">
+        <div class="icon-bg">💳</div>
+        <h3>사용액 기반 평가</h3>
+        <div class="sub">Monthly Grade Evaluation</div>
+        <p class="desc">월 단위 사용액에 따라 등급이 갱신됩니다. 카드를 많이 사용할수록 더 많은 혜택을 받을 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section id="apply" class="apply-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">📋 APPLY NOW</span>
+      <h2>지금 시작하세요</h2>
+      <p>비대면 KYC 인증으로 빠르게 발급받고, 모든 NAMDA 서비스를 즉시 이용하세요</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>정보 입력</h4>
+        <p>이름·연락처·이메일 등 기본 정보 입력</p>
+        <div class="time">약 1분</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>비대면 KYC 인증</h4>
+        <p>신분증 촬영과 본인 확인을 비대면으로 진행</p>
+        <div class="time">약 2분</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>발급 완료 & 즉시 사용</h4>
+        <p>디지털 카드 즉시 발급, 실물 카드는 추후 배송</p>
+        <div class="time">즉시</div>
+      </div>
+    </div>
+    <div class="apply-cta">
+      <a href="#" class="btn-white">Get Your Card →</a>
+      <div class="trust-badges">
+        <span>🔒 블록체인 기반 보안</span>
+        <span>🛡️ 국제 보안 표준 준수</span>
+        <span>💳 발급 수수료 0원</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">❓ FAQ</span>
+      <h2>자주 묻는 질문</h2>
+      <p>궁금한 점은 1:1 상담으로 더 자세히 도와드립니다</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Q. NAMDA Card는 누가 신청할 수 있나요?</div>
+        <div class="faq-a">비대면 KYC(실명 인증) 절차를 완료할 수 있는 분이라면 누구나 신청 가능합니다. 신분증과 휴대폰만 있으면 약 3분 만에 발급이 완료됩니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 발급은 얼마나 걸리나요?</div>
+        <div class="faq-a">디지털 카드는 KYC 완료 즉시 발급되어 바로 사용 가능합니다. 실물 카드는 신청 완료 후 영업일 기준 3~5일 내 배송됩니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 해외에서도 사용 가능한가요?</div>
+        <div class="faq-a">네, 전 세계 1억 3천만 개 이상의 가맹점에서 사용 가능합니다. USD 기반 글로벌 결제로 별도의 환전 절차가 필요 없습니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 카드는 어떻게 충전하나요?</div>
+        <div class="faq-a">법정화폐와 포인트 등 다양한 방식으로 충전이 가능합니다. NAMDA 앱을 통해 즉시 충전과 송금이 지원되며, 자세한 방법은 회원가입 후 안내됩니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 회원 등급은 어떻게 결정되나요?</div>
+        <div class="faq-a">두 가지 기준으로 평가됩니다. ① 반기 단위 가입 기간 평가 ② 월 단위 사용액 평가. 등급에 따라 NAMDA Trip / Mall / Rental의 혜택이 차등 적용됩니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 보안은 안전한가요?</div>
+        <div class="faq-a">모든 거래 기록은 블록체인 기반으로 암호화되어 저장됩니다. 또한 국제 보안 표준을 준수하여 데이터 보호를 보장합니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 카드 분실 시 어떻게 해야 하나요?</div>
+        <div class="faq-a">NAMDA 앱에서 즉시 카드 정지가 가능하며, 24시간 고객센터로 분실 신고도 받습니다. 재발급 신청은 같은 채널에서 진행됩니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Q. 발급 수수료나 연회비가 있나요?</div>
+        <div class="faq-a">발급 수수료와 연회비 모두 무료입니다. 별도의 유지 비용 없이 모든 NAMDA 서비스를 이용하실 수 있습니다.</div>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">📧</div>
+        <h4>이메일 문의</h4>
+        <div class="info">support@namda.biz</div>
+        <div class="hours">24시간 접수 가능</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h4>전화 상담</h4>
+        <div class="info">+82 2 554 0513</div>
+        <div class="hours">평일 09:00 ~ 18:00</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">💬</div>
+        <h4>실시간 채팅</h4>
+        <div class="info">앱 내 1:1 채팅</div>
+        <div class="hours">평일 09:00 ~ 18:00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3><img src="data:image/png;base64,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" alt="NAMDA"></h3>
+        <p>Pioneering the Future with AI and Blockchain.<br>국경을 넘어, 삶을 변화시키는 연결.</p>
+        <div class="biz-info">
+          (주) 남다 · 대표 안동연<br>
+          서울 양천로 400-12 더리브골드 지식산업센터<br>
+          T. +82 2 554 0513 · E. support@namda.biz
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>SERVICES</h5>
+        <a href="#features">NAMDA Card</a>
+        <a href="#trip">NAMDA Trip</a>
+        <a href="#mall">NAMDA Mall</a>
+        <a href="#rental">NAMDA Rental</a>
+        <a href="#">NAMDA Mobile</a>
+      </div>
+      <div class="footer-col">
+        <h5>SUPPORT</h5>
+        <a href="#faq">FAQ</a>
+        <a href="#">고객 상담</a>
+        <a href="#">분실 신고</a>
+        <a href="#">공지사항</a>
+      </div>
+      <div class="footer-col">
+        <h5>LEGAL</h5>
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+        <a href="#">전자금융거래 약관</a>
+        <a href="#">위치정보 이용약관</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 NAMDA. All rights reserved.<br>
+      NAMDA PLATFORM PTE. LTD. · 2 VENTURE DRIVE, #19-21, VISION EXCHANGE, SINGAPORE 608526
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
